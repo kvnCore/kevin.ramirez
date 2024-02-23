@@ -7,7 +7,7 @@ $data = json_decode($response, true);
 foreach ($data['data']['children'] as $subreddit) {
     $name = $subreddit['data']['display_name'];
 
-    // Verificar si el subreddit ya existe en la base de datos
+    
     $checkStmt = $conn->prepare("SELECT COUNT(*) FROM subreddits WHERE name = ?");
     $checkStmt->bind_param("s", $name);
     $checkStmt->execute();
@@ -15,7 +15,7 @@ foreach ($data['data']['children'] as $subreddit) {
     $checkStmt->fetch();
     $checkStmt->close();
 
-    // Si el subreddit no existe, insertarlo
+ 
     if ($count == 0) {
         $image_url = $subreddit['data']['icon_img'];
         $title = $subreddit['data']['title'];
@@ -23,7 +23,7 @@ foreach ($data['data']['children'] as $subreddit) {
         $subscribers = $subreddit['data']['subscribers'];
         $url = $subreddit['data']['url'];
 
-        // Evitar problemas de SQL injection usando prepared statements
+
         $stmt = $conn->prepare("INSERT INTO subreddits (name, image_url, title, description, subscribers, url) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssis", $name, $image_url, $title, $description, $subscribers, $url);
         $stmt->execute();

@@ -118,9 +118,9 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
     $(document).ready(() => {
-      // Realizar solicitud para obtener lista de subreddits desde la API
+    
       $.get('api.php', (data) => {
-        // Mostrar lista de subreddits
+        
         data.forEach((subreddit) => {
           const $subredditCard = $(`
             <div class="subreddit-card" data-id="${subreddit.id}">
@@ -139,12 +139,12 @@
     });
 
     function showSubredditDetail(subredditId) {
-      // Realizar solicitud para obtener detalles del subreddit seleccionado
+      
       $.get(`api.php?id=${subredditId}`, (subreddit) => {
-        // Ocultar lista y mostrar detalle
+       
         $('#subreddit-list').hide();
 
-        // Llenar la vista de detalles
+    
         $('#detail-title').text(subreddit.title);
         $('#detail-image').attr('src', subreddit.image_url);
 
@@ -157,21 +157,21 @@
 
         $('#detail-content').html(detailContent);
 
-        // Mostrar la vista de detalles
+        
         $('#subreddit-details').show();
       });
     }
 
     function backToList() {
-      // Mostrar lista y ocultar detalle
+      
       $('#subreddit-list').show();
       $('#subreddit-details').hide();
     }
 
     function setDefaultImage(imgElement) {
     if (!imgElement.errorHandled) {
-    imgElement.style.display = 'none';  // Oculta la imagen
-    imgElement.onerror = null;  // Elimina el manejador de errores para evitar bucles infinitos
+    imgElement.style.display = 'none';  
+    imgElement.onerror = null;  
 
 
   }
